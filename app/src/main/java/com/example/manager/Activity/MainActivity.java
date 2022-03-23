@@ -23,11 +23,13 @@ public class MainActivity extends AppCompatActivity {
     private static BottomNavigationView bottom_Navigation;
     private ConstraintLayout fragment_layout;
     private Fragment fragment_Status, fragment_Control, fragment_Information;
+    private Garbage_Can garbage_can;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        garbage_can = new Garbage_Can("", 100f, 100f);
         AnhXa();
         setUp();
     }
@@ -39,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUp(){
-        fragment_Status = new Fragment_Status();
-        fragment_Control = new Fragment_Control(new Garbage_Can("", 0f));
+        fragment_Status = new Fragment_Status(garbage_can);
+        fragment_Control = new Fragment_Control(garbage_can);
         fragment_Information = new Fragment_Information();
         chang_Menu(fragment_Status);
     }

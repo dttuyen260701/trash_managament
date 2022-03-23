@@ -4,20 +4,25 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable-v24/left_arrow.xml" value="0.3725" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/clip_image.xml" value="0.3725" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/clip_image2.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_button_cart_frag.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_button_control.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_button_control_leftdoor.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_button_control_rightdoor.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_button_inf_frag.xml" value="0.3725" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_image_garbage_can_left.xml" value="0.3725" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_image_garbage_can_right.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_layout_garbage_can_bottom_left.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_layout_garbage_can_bottom_right.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/custom_layout_garbage_can_head.xml" value="0.3725" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/drawable/image_door_control_fragment.xml" value="0.3725" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/activity_main.xml" value="0.3578125" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/activity_splash_screen.xml" value="0.371875" />
-        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_control.xml" value="0.33" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_control.xml" value="0.25" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_dialog_image.xml" value="0.371875" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_information.xml" value="0.33" />
-        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_status.xml" value="0.25" />
+        <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_status.xml" value="0.33" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/layout/fragment_webview.xml" value="0.371875" />
         <entry key="..\:/Ki 6/PBL5/Manager/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.371875" />
       </map>

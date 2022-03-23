@@ -3,15 +3,17 @@ package com.example.manager.Models;
 public class Garbage_Can {
     private String ip;
     private boolean door, leftDoor, rightDoor, power;
-    private float volume;
+    private float volume_recycle, volume_nonRecycle;
     //true la Mo, false la Dong
-    public Garbage_Can(String ip, float volume) {
+
+    public Garbage_Can(String ip, float volume_recycle, float volume_nonRecycle) {
         this.ip = ip;
         this.door = false;
         this.leftDoor = false;
         this.rightDoor = false;
         this.power = false;
-        this.volume = volume;
+        this.volume_recycle = volume_recycle;
+        this.volume_nonRecycle = volume_nonRecycle;
     }
 
     public String getIp() {
@@ -54,12 +56,20 @@ public class Garbage_Can {
         this.power = power;
     }
 
-    public float getVolume() {
-        return volume;
+    public float getVolume_recycle() {
+        return volume_recycle;
     }
 
-    public void setVolume(float volume) {
-        this.volume = volume;
+    public void setVolume_recycle(float volume_recycle) {
+        this.volume_recycle = volume_recycle;
+    }
+
+    public float getVolume_nonRecycle() {
+        return volume_nonRecycle;
+    }
+
+    public void setVolume_nonRecycle(float volume_nonRecycle) {
+        this.volume_nonRecycle = volume_nonRecycle;
     }
 
     @Override
@@ -70,7 +80,8 @@ public class Garbage_Can {
                 ", leftDoor=" + leftDoor +
                 ", rightDoor=" + rightDoor +
                 ", power=" + power +
-                ", volume=" + volume +
+                ", volume_recycle=" + volume_recycle +
+                ", volume_nonRecycle=" + volume_nonRecycle +
                 '}';
     }
 }

@@ -126,6 +126,34 @@
                     android:layout_weight="1"
                     android:background="@drawable/custom_layout_garbage_can_bottom_left">
 
+
+                    <ImageView
+                        android:id="@+id/img_NonRecycle_Status_frag"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/clip_image" />
+
+                    <TextView
+                        android:id="@+id/txtPer_NonRecycle_Status_Frag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -134,6 +162,32 @@
                     android:layout_weight="1"
                     android:background="@drawable/custom_layout_garbage_can_bottom_right">
 
+                    <ImageView
+                        android:id="@+id/img_Recycle_Status_frag"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/clip_image2" />
+
+                    <TextView
+                        android:id="@+id/txtPer_Recycle_Status_Frag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/img_Recycle_Status_frag"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </LinearLayout>
