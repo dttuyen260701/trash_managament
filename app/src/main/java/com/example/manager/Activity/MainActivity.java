@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MenuItem;
 
 import com.example.manager.Models.Garbage_Can;
 import com.example.manager.R;
+import com.example.manager.Utils.Constant_Values;
 import com.example.manager.fragments.Fragment_Control;
 import com.example.manager.fragments.Fragment_Information;
 import com.example.manager.fragments.Fragment_Status;
@@ -45,6 +47,34 @@ public class MainActivity extends AppCompatActivity {
         fragment_Control = new Fragment_Control(garbage_can);
         fragment_Information = new Fragment_Information();
         chang_Menu(fragment_Status);
+        CountDownTimer countDownTimer = new CountDownTimer(60*60*60,
+                Constant_Values.TIME_TO_UPDATE_GARBAGE*60*1000) {
+            @Override
+            public void onTick(long l) {
+                if(garbage_can.getVolume_nonRecycle() >= 100)
+                    garbage_can.setVolume_nonRecycle(0);
+                if(garbage_can.getVolume_recycle() >= 100)
+                    garbage_can.setVolume_recycle(0);
+                garbage_can.setVolume_nonRecycle(garbage_can.getVolume_nonRecycle() + 10);
+                garbage_can.setVolume_recycle(garbage_can.getVolume_recycle() + 10);
+                switch (bottom_Navigation.getSelectedItemId()){
+                    case R.id.bottom_Status:
+                        ((Fragment_Status) fragment_Status).updateView();
+                        break;
+                    case R.id.bottom_Control:
+                        ((Fragment_Control) fragment_Control).updateView();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                this.start();
+            }
+        };
+        countDownTimer.start();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =

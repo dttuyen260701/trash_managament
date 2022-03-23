@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -18,7 +19,7 @@ import com.example.manager.R;
 import com.example.manager.Utils.Constant_Values;
 
 public class Fragment_Control extends Fragment {
-
+    private TextView txtPower_Control_Frag;
     private ImageButton btnClose_Ctrl_Frag, btnLeftDoor_Ctrl_Frag,
             btnRightDoor_Ctrl_Frag, btnPower_Ctrl_Frag;
     private ImageView img_Descrip_Control_Frag, img_Door_Control_frag,
@@ -49,38 +50,9 @@ public class Fragment_Control extends Fragment {
         img_Descrip_Control_Frag = (ImageView) view.findViewById(R.id.img_Descrip_Control_Frag);
         img_Door_Control_frag = (ImageView) view.findViewById(R.id.img_Door_Control_frag);
         image_tool_bar_Control_frag = (ImageView) view.findViewById(R.id.image_tool_bar_Control_frag);
+        txtPower_Control_Frag = (TextView) view.findViewById(R.id.txtPower_Control_Frag);
 
-        if(garbage_can.isDoor()){
-            btnClose_Ctrl_Frag.setImageResource(R.drawable.close);
-            img_Door_Control_frag.setImageResource(R.drawable.garbage);
-        } else {
-            btnClose_Ctrl_Frag.setImageResource(R.drawable.open);
-            img_Door_Control_frag.setImageResource(R.drawable.door);
-        }
-
-        if(garbage_can.isLeftDoor()){
-            btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.up);
-        } else {
-            btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.down);
-        }
-
-        if(garbage_can.isRightDoor()){
-            btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.up);
-        } else {
-            btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.down);
-        }
-
-        if(garbage_can.isRightDoor() && !garbage_can.isLeftDoor()){
-            image_tool_bar_Control_frag.setRotation(15);
-        } else if(garbage_can.isLeftDoor() && !garbage_can.isRightDoor()){
-            image_tool_bar_Control_frag.setRotation(-15);
-        }
-
-        if(garbage_can.isPower()){
-            isPowerOn();
-        } else {
-            isPowerOff();
-        }
+        updateView();
 
         img_Descrip_Control_Frag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,13 +83,23 @@ public class Fragment_Control extends Fragment {
                 }
                 Animation anim_alpha = AnimationUtils.loadAnimation(getContext(), R.anim.anim_alpha);
                 int finalImg_door = img_door;
-                img_Door_Control_frag.startAnimation(anim_alpha);
-                new Handler().postDelayed(new Runnable() {
+                anim_alpha.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void run() {
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
                         img_Door_Control_frag.setImageResource(finalImg_door);
                     }
-                }, 2000);
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                img_Door_Control_frag.startAnimation(anim_alpha);
             }
         });
 
@@ -141,13 +123,23 @@ public class Fragment_Control extends Fragment {
                     rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_down);
                 }
                 int finalRotate_degree = rotate_degree;
-                image_tool_bar_Control_frag.startAnimation(rotate);
-                new Handler().postDelayed(new Runnable() {
+                rotate.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void run() {
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
                         image_tool_bar_Control_frag.setRotation(image_tool_bar_Control_frag.getRotation() + finalRotate_degree);
                     }
-                }, 2000);
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                image_tool_bar_Control_frag.startAnimation(rotate);
             }
         });
 
@@ -172,13 +164,23 @@ public class Fragment_Control extends Fragment {
                     rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_up);
                 }
                 int finalRotate_degree = rotate_degree;
-                image_tool_bar_Control_frag.startAnimation(rotate);
-                new Handler().postDelayed(new Runnable() {
+                rotate.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void run() {
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
                         image_tool_bar_Control_frag.setRotation(image_tool_bar_Control_frag.getRotation() + finalRotate_degree);
                     }
-                }, 2000);
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                image_tool_bar_Control_frag.startAnimation(rotate);
             }
         });
 
@@ -190,10 +192,12 @@ public class Fragment_Control extends Fragment {
                 }
                 mLastClick_Power = SystemClock.elapsedRealtime();
                 if(garbage_can.isPower()){
+                    txtPower_Control_Frag.setText("Power: Off");
                     garbage_can.setPower(false);
                     btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
                     isPowerOff();
                 } else {
+                    txtPower_Control_Frag.setText("Power: On");
                     garbage_can.setPower(true);
                     btnPower_Ctrl_Frag.setImageResource(R.drawable.power_off);
                     isPowerOn();
@@ -236,5 +240,42 @@ public class Fragment_Control extends Fragment {
                 img_Door_Control_frag.setImageResource(R.drawable.garbage);
             }
         }, 2000);
+    }
+
+
+    public void updateView(){
+        if(garbage_can.isDoor()){
+            btnClose_Ctrl_Frag.setImageResource(R.drawable.close);
+            img_Door_Control_frag.setImageResource(R.drawable.garbage);
+        } else {
+            btnClose_Ctrl_Frag.setImageResource(R.drawable.open);
+            img_Door_Control_frag.setImageResource(R.drawable.door);
+        }
+
+        if(garbage_can.isLeftDoor()){
+            btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.up);
+        } else {
+            btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.down);
+        }
+
+        if(garbage_can.isRightDoor()){
+            btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.up);
+        } else {
+            btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.down);
+        }
+
+        if(garbage_can.isRightDoor() && !garbage_can.isLeftDoor()){
+            image_tool_bar_Control_frag.setRotation(15);
+        } else if(garbage_can.isLeftDoor() && !garbage_can.isRightDoor()){
+            image_tool_bar_Control_frag.setRotation(-15);
+        }
+
+        if(garbage_can.isPower()){
+            txtPower_Control_Frag.setText("Power: On");
+            isPowerOn();
+        } else {
+            txtPower_Control_Frag.setText("Power: Off");
+            isPowerOff();
+        }
     }
 }

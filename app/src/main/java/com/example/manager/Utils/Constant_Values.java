@@ -2,6 +2,7 @@ package com.example.manager.Utils;
 
 public class Constant_Values {
     public static float Volume_Machine = 100f;
+    public static int TIME_TO_UPDATE_GARBAGE = 1;
     public static String HTU_Control = "You can open(<|>)/close(>|<) door by first button."
             + "\nYou can open(▼)/close(▲) left/right door by two button next."
             + "\nThe last button can help you turn on(Green)/off(Blue) power of machine."

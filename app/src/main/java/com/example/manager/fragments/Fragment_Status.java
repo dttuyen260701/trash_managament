@@ -47,7 +47,7 @@ public class Fragment_Status extends Fragment {
         txtPer_NonRecycle_Status_Frag = (TextView) view.findViewById(R.id.txtPer_NonRecycle_Status_Frag);
         txtPer_Recycle_Status_Frag = (TextView) view.findViewById(R.id.txtPer_Recycle_Status_Frag);
 
-        SetUpWithGarbageCan();
+        updateView();
 
         img_Descrip_Status_Frag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +84,7 @@ public class Fragment_Status extends Fragment {
         });
     }
 
-    private void SetUpWithGarbageCan(){
+    public void updateView(){
         float per_Recycle = garbage_can.getVolume_recycle()/Constant_Values.Volume_Machine,
                 per_NonRecycle = garbage_can.getVolume_nonRecycle()/Constant_Values.Volume_Machine;
         img_NonRecycle_Status_frag.setImageLevel((int) (10000*per_NonRecycle));
