@@ -219,6 +219,7 @@ public class Fragment_Control extends Fragment {
                 }
             }, 2000);
         }
+        btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
         btnClose_Ctrl_Frag.setImageResource(R.drawable.open);
         btnClose_Ctrl_Frag.setEnabled(false);
         btnLeftDoor_Ctrl_Frag.setEnabled(false);
@@ -228,6 +229,7 @@ public class Fragment_Control extends Fragment {
     private void isPowerOn(){
         //mo cua thung rac
         garbage_can.setDoor(true);
+        btnPower_Ctrl_Frag.setImageResource(R.drawable.power_off);
         btnClose_Ctrl_Frag.setImageResource(R.drawable.close);
         btnClose_Ctrl_Frag.setEnabled(true);
         btnLeftDoor_Ctrl_Frag.setEnabled(true);
