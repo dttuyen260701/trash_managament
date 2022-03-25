@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
             countDownTimer.cancel();
         }
         countDownTimer = new CountDownTimer(60*60*60,
-                Constant_Values.TIME_TO_UPDATE_GARBAGE*60*1000) {
+                //Constant_Values.TIME_TO_UPDATE_GARBAGE*60*1000) {
+            5000){
             @Override
             public void onTick(long l) {
                 if(garbage_can.getVolume_nonRecycle() >= 100)
@@ -130,22 +131,16 @@ public class MainActivity extends AppCompatActivity {
         RemoteViews notification_layout =
                 new RemoteViews(getPackageName(), R.layout.notification_view);
 
-        if(per_NonRecycle >= 0.8){
-            notification_layout.setImageViewResource(R.id.img_NonRecycle_noti_view, R.drawable.custom_image_garbage_can_left);
-        } else {
-            notification_layout.setImageViewResource(R.id.img_NonRecycle_noti_view, R.drawable.custom_img_notification_left);
-        }
-        if(per_Recycle >= 0.8){
-            notification_layout.setImageViewResource(R.id.img_Recycle_noti_view, R.drawable.custom_image_garbage_can_right);
-        } else {
-            notification_layout.setImageViewResource(R.id.img_Recycle_noti_view, R.drawable.custom_img_notification_right);
-        }
+        notification_layout.setImageViewResource(R.id.img_NonRecycle_noti_view, R.drawable.clip_image);
+        notification_layout.setInt(R.id.img_NonRecycle_noti_view, "setImageLevel", (int) (10000*per_NonRecycle));
+        notification_layout.setImageViewResource(R.id.img_Recycle_noti_view, R.drawable.clip_image2);
+        notification_layout.setInt(R.id.img_Recycle_noti_view, "setImageLevel", (int) (10000*per_Recycle));
+
         per_NonRecycle = ((float) Math.round(per_NonRecycle*10000)/100);
         per_Recycle = ((float) Math.round(per_Recycle*10000)/100);
         notification_layout.setTextViewText(R.id.txtPer_NonRecycle_noti_view, per_NonRecycle + "%");
         notification_layout.setTextViewText(R.id.txtPer_Recycle_noti_view, per_Recycle + "%");
 
-        // PendingIntent receiver = MyMediaButtonReceiver.buildMediaButtonPendingIntent(this, PlaybackStateCompat.ACTION_PAUSE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
         //set quay lại màn hình chính dùng set Action + add  Category

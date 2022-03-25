@@ -65,7 +65,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/custom_img_notification_left" />
+                app:srcCompat="@drawable/custom_image_garbage_can_left" />
 
             <TextView
                 android:id="@+id/txtPer_NonRecycle_noti_view"
@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="0%"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </FrameLayout>
@@ -94,7 +94,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                app:srcCompat="@drawable/custom_img_notification_right" />
+                app:srcCompat="@drawable/custom_image_garbage_can_right" />
 
             <TextView
                 android:id="@+id/txtPer_Recycle_noti_view"
@@ -102,7 +102,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="0%"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold" />
         </FrameLayout>
