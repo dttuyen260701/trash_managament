@@ -83,9 +83,10 @@
         <TextView
             android:id="@+id/txtDoor_Control_Frag"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:gravity="bottom|center"
-            android:paddingBottom="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp"
             android:text="Door:"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -115,7 +116,7 @@
                     android:id="@+id/img_Door_Control_frag"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="center"
+                    android:scaleType="fitCenter"
                     app:srcCompat="@drawable/door" />
 
             </androidx.cardview.widget.CardView>
@@ -124,15 +125,17 @@
         <TextView
             android:id="@+id/txtTask_Control_Frag"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:gravity="bottom|center"
-            android:paddingBottom="10dp"
-            android:text="Inclined Bar:"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp"
+            android:text="Inside Door:"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/image_tool_bar_Control_frag"
+            app:layout_constraintBottom_toTopOf="@+id/layout_Control_frag"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_view" />
 
@@ -152,18 +155,36 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="spread" />
 
-        <ImageView
-            android:id="@+id/image_tool_bar_Control_frag"
+        <LinearLayout
+            android:id="@+id/layout_Control_frag"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="20dp"
-            android:scaleType="fitXY"
+            android:background="@drawable/custom_backgroud_inside_door"
+            android:orientation="horizontal"
+            android:weightSum="2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="h,4:1"
+            app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTask_Control_Frag"
-            app:srcCompat="@drawable/inclined_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/txtTask_Control_Frag">
+
+            <ImageView
+                android:id="@+id/image_tool_bar_Control_frag"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/semi_cycler2" />
+
+            <ImageView
+                android:id="@+id/img_board_Control_frag"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/custom_button_control"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/motherboard" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -174,6 +195,7 @@
         android:background="@drawable/custom_layout_garbage_can_head"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_StatusCtrl_Frag"
         app:layout_constraintVertical_weight="6">
@@ -181,69 +203,56 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_btn_Door"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/btnPower_Ctrl_Frag"
-            app:layout_constraintDimensionRatio="w,6:1"
+            app:layout_constraintDimensionRatio="w,5:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnClose_Ctrl_Frag">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
 
             <ImageButton
-                android:id="@+id/btnRightDoor_Ctrl_Frag"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/custom_button_control_rightdoor"
-                android:contentDescription="Right Door"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="h,2:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btnLeftDoor_Ctrl_Frag"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/down" />
-
-            <ImageButton
-                android:id="@+id/btnLeftDoor_Ctrl_Frag"
+                android:id="@+id/btnInSideDoor_Ctrl_Frag"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
-                android:background="@drawable/custom_button_control_leftdoor"
+                android:background="@drawable/custom_button_control"
                 android:contentDescription="Left Door"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="h,2:1"
-                app:layout_constraintEnd_toStartOf="@+id/btnRightDoor_Ctrl_Frag"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toStartOf="@+id/btnClose_Ctrl_Frag"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/down" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@drawable/open_inside_door" />
 
-        <ImageButton
-            android:id="@+id/btnClose_Ctrl_Frag"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/custom_button_control"
-            android:contentDescription="Close/Open"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/layout_btn_Door"
-            app:layout_constraintDimensionRatio="5:4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/close" />
+            <ImageButton
+                android:id="@+id/btnClose_Ctrl_Frag"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/custom_button_control"
+                android:contentDescription="Close/Open"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btnInSideDoor_Ctrl_Frag"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/close" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
             android:id="@+id/btnPower_Ctrl_Frag"
             android:layout_width="0dp"
-            android:layout_height="140dp"
-            android:layout_marginBottom="5dp"
+            android:layout_height="150dp"
             android:background="@null"
             android:contentDescription="Power On/Off"
             android:scaleType="centerCrop"

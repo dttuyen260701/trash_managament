@@ -20,10 +20,10 @@ import com.example.manager.Utils.Constant_Values;
 
 public class Fragment_Control extends Fragment {
     private TextView txtPower_Control_Frag;
-    private ImageButton btnClose_Ctrl_Frag, btnLeftDoor_Ctrl_Frag,
-            btnRightDoor_Ctrl_Frag, btnPower_Ctrl_Frag;
+    private ImageButton btnClose_Ctrl_Frag, btnInSideDoor_Ctrl_Frag,
+            btnPower_Ctrl_Frag;
     private ImageView img_Descrip_Control_Frag, img_Door_Control_frag,
-            image_tool_bar_Control_frag;
+            image_tool_bar_Control_frag, img_board_Control_frag;
     private Garbage_Can garbage_can;
     private long mLastClick_Power = 0, mLastClick_Close = 0,
             mLastClick_LRDoor = 0;
@@ -44,11 +44,11 @@ public class Fragment_Control extends Fragment {
 
     private void SetUp(View view){
         btnClose_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnClose_Ctrl_Frag);
-        btnLeftDoor_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnLeftDoor_Ctrl_Frag);
-        btnRightDoor_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnRightDoor_Ctrl_Frag);
+        btnInSideDoor_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnInSideDoor_Ctrl_Frag);
         btnPower_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnPower_Ctrl_Frag);
         img_Descrip_Control_Frag = (ImageView) view.findViewById(R.id.img_Descrip_Control_Frag);
         img_Door_Control_frag = (ImageView) view.findViewById(R.id.img_Door_Control_frag);
+        img_board_Control_frag = (ImageView) view.findViewById(R.id.img_board_Control_frag);
         image_tool_bar_Control_frag = (ImageView) view.findViewById(R.id.image_tool_bar_Control_frag);
         txtPower_Control_Frag = (TextView) view.findViewById(R.id.txtPower_Control_Frag);
 
@@ -83,6 +83,7 @@ public class Fragment_Control extends Fragment {
                 }
                 Animation anim_alpha = AnimationUtils.loadAnimation(getContext(), R.anim.anim_alpha);
                 int finalImg_door = img_door;
+                anim_alpha.setDuration(2000);
                 anim_alpha.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -103,84 +104,16 @@ public class Fragment_Control extends Fragment {
             }
         });
 
-        btnLeftDoor_Ctrl_Frag.setOnClickListener(new View.OnClickListener() {
+        btnInSideDoor_Ctrl_Frag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (SystemClock.elapsedRealtime() - mLastClick_LRDoor < 2000){
-                    return;
-                }
-                mLastClick_LRDoor = SystemClock.elapsedRealtime();int rotate_degree = 0;
-                Animation rotate = null;
-                if(garbage_can.isLeftDoor()){
-                    garbage_can.setLeftDoor(false);
-                    btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.down);
-                    rotate_degree = 15;
-                    rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_up);
-                } else {
-                    garbage_can.setLeftDoor(true);
-                    btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.up);
-                    rotate_degree = -15;
-                    rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_down);
-                }
-                int finalRotate_degree = rotate_degree;
-                rotate.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        image_tool_bar_Control_frag.setRotation(image_tool_bar_Control_frag.getRotation() + finalRotate_degree);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                image_tool_bar_Control_frag.startAnimation(rotate);
-            }
-        });
-
-        btnRightDoor_Ctrl_Frag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (SystemClock.elapsedRealtime() - mLastClick_LRDoor < 2000){
+                if (SystemClock.elapsedRealtime() - mLastClick_LRDoor < 4000){
                     return;
                 }
                 mLastClick_LRDoor = SystemClock.elapsedRealtime();
-                int rotate_degree = 0;
-                Animation rotate = null;
-                if(garbage_can.isRightDoor()){
-                    garbage_can.setRightDoor(false);
-                    btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.down);
-                    rotate_degree = -15;
-                    rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_down);
-                } else {
-                    garbage_can.setRightDoor(true);
-                    btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.up);
-                    rotate_degree = 15;
-                    rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_up);
-                }
-                int finalRotate_degree = rotate_degree;
-                rotate.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        image_tool_bar_Control_frag.setRotation(image_tool_bar_Control_frag.getRotation() + finalRotate_degree);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
+                Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_down);
                 image_tool_bar_Control_frag.startAnimation(rotate);
+
             }
         });
 
@@ -222,8 +155,7 @@ public class Fragment_Control extends Fragment {
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
         btnClose_Ctrl_Frag.setImageResource(R.drawable.open);
         btnClose_Ctrl_Frag.setEnabled(false);
-        btnLeftDoor_Ctrl_Frag.setEnabled(false);
-        btnRightDoor_Ctrl_Frag.setEnabled(false);
+        btnInSideDoor_Ctrl_Frag.setEnabled(false);
     }
 
     private void isPowerOn(){
@@ -232,16 +164,26 @@ public class Fragment_Control extends Fragment {
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_off);
         btnClose_Ctrl_Frag.setImageResource(R.drawable.close);
         btnClose_Ctrl_Frag.setEnabled(true);
-        btnLeftDoor_Ctrl_Frag.setEnabled(true);
-        btnRightDoor_Ctrl_Frag.setEnabled(true);
+        btnInSideDoor_Ctrl_Frag.setEnabled(true);
         Animation anim_alpha = AnimationUtils.loadAnimation(getContext(), R.anim.anim_alpha);
-        img_Door_Control_frag.startAnimation(anim_alpha);
-        new Handler().postDelayed(new Runnable() {
+        anim_alpha.setDuration(2000);
+        anim_alpha.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 img_Door_Control_frag.setImageResource(R.drawable.garbage);
             }
-        }, 2000);
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        img_Door_Control_frag.startAnimation(anim_alpha);
     }
 
 
@@ -252,24 +194,6 @@ public class Fragment_Control extends Fragment {
         } else {
             btnClose_Ctrl_Frag.setImageResource(R.drawable.open);
             img_Door_Control_frag.setImageResource(R.drawable.door);
-        }
-
-        if(garbage_can.isLeftDoor()){
-            btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.up);
-        } else {
-            btnLeftDoor_Ctrl_Frag.setImageResource(R.drawable.down);
-        }
-
-        if(garbage_can.isRightDoor()){
-            btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.up);
-        } else {
-            btnRightDoor_Ctrl_Frag.setImageResource(R.drawable.down);
-        }
-
-        if(garbage_can.isRightDoor() && !garbage_can.isLeftDoor()){
-            image_tool_bar_Control_frag.setRotation(15);
-        } else if(garbage_can.isLeftDoor() && !garbage_can.isRightDoor()){
-            image_tool_bar_Control_frag.setRotation(-15);
         }
 
         if(garbage_can.isPower()){
