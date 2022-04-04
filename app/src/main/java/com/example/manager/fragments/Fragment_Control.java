@@ -23,7 +23,7 @@ public class Fragment_Control extends Fragment {
     private ImageButton btnClose_Ctrl_Frag, btnInSideDoor_Ctrl_Frag,
             btnPower_Ctrl_Frag;
     private ImageView img_Descrip_Control_Frag, img_Door_Control_frag,
-            image_tool_bar_Control_frag, img_board_Control_frag;
+            image_tool_bar_Control_frag;
     private Garbage_Can garbage_can;
     private long mLastClick_Power = 0, mLastClick_Close = 0,
             mLastClick_LRDoor = 0;
@@ -48,7 +48,6 @@ public class Fragment_Control extends Fragment {
         btnPower_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnPower_Ctrl_Frag);
         img_Descrip_Control_Frag = (ImageView) view.findViewById(R.id.img_Descrip_Control_Frag);
         img_Door_Control_frag = (ImageView) view.findViewById(R.id.img_Door_Control_frag);
-        img_board_Control_frag = (ImageView) view.findViewById(R.id.img_board_Control_frag);
         image_tool_bar_Control_frag = (ImageView) view.findViewById(R.id.image_tool_bar_Control_frag);
         txtPower_Control_Frag = (TextView) view.findViewById(R.id.txtPower_Control_Frag);
 
