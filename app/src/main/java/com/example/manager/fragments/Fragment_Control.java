@@ -54,6 +54,14 @@ public class Fragment_Control extends Fragment {
 
         updateView();
 
+        if(garbage_can.isPower()){
+            txtPower_Control_Frag.setText("Power: On");
+            isPowerOn();
+        } else {
+            txtPower_Control_Frag.setText("Power: Off");
+            isPowerOff();
+        }
+
         img_Descrip_Control_Frag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +91,6 @@ public class Fragment_Control extends Fragment {
                 }
                 Animation anim_alpha = AnimationUtils.loadAnimation(getContext(), R.anim.anim_alpha);
                 int finalImg_door = img_door;
-                anim_alpha.setDuration(2000);
                 anim_alpha.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -144,13 +151,23 @@ public class Fragment_Control extends Fragment {
         if(garbage_can.isDoor()){
             garbage_can.setDoor(false);
             Animation anim_alpha = AnimationUtils.loadAnimation(getContext(), R.anim.anim_alpha);
-            img_Door_Control_frag.startAnimation(anim_alpha);
-            new Handler().postDelayed(new Runnable() {
+            anim_alpha.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void run() {
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
                     img_Door_Control_frag.setImageResource(R.drawable.door);
                 }
-            }, 2000);
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            img_Door_Control_frag.startAnimation(anim_alpha);
         }
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
         btnClose_Ctrl_Frag.setImageResource(R.drawable.open);
@@ -166,7 +183,6 @@ public class Fragment_Control extends Fragment {
         btnClose_Ctrl_Frag.setEnabled(true);
         btnInSideDoor_Ctrl_Frag.setEnabled(true);
         Animation anim_alpha = AnimationUtils.loadAnimation(getContext(), R.anim.anim_alpha);
-        anim_alpha.setDuration(2000);
         anim_alpha.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -197,11 +213,11 @@ public class Fragment_Control extends Fragment {
         }
 
         if(garbage_can.isPower()){
-            txtPower_Control_Frag.setText("Power: On");
-            isPowerOn();
+            btnClose_Ctrl_Frag.setEnabled(true);
+            btnInSideDoor_Ctrl_Frag.setEnabled(true);
         } else {
-            txtPower_Control_Frag.setText("Power: Off");
-            isPowerOff();
+            btnClose_Ctrl_Frag.setEnabled(false);
+            btnInSideDoor_Ctrl_Frag.setEnabled(false);
         }
     }
 }
