@@ -2,7 +2,7 @@ package com.example.manager.Models;
 
 public class Garbage_Can {
     private String ip;
-    private boolean door, power;
+    private boolean door, power;//door 1 la dang tai che, door 0 la k phai tai che
     private float volume_recycle, volume_nonRecycle;
     //true la Mo, false la Dong
 

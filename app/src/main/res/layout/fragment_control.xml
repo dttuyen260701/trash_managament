@@ -87,40 +87,61 @@
             android:gravity="bottom|center"
             android:paddingTop="20dp"
             android:paddingBottom="5dp"
-            android:text="Door:"
+            android:text="Compartment:"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/card_view"
+            app:layout_constraintBottom_toTopOf="@+id/constrain_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPower_Control_Frag" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_view"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constrain_card"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:backgroundTint="@color/app_themes"
             app:layout_constraintBottom_toTopOf="@+id/txtTask_Control_Frag"
             app:layout_constraintDimensionRatio="h,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDoor_Control_Frag">
 
-            <androidx.cardview.widget.CardView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="100dp">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/img_Door_Control_frag"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/door" />
+                    android:id="@+id/img_first_door"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/first_door_rc" />
 
-            </androidx.cardview.widget.CardView>
-        </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/image_door"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/app_themes"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/motherboard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/txtTask_Control_Frag"
@@ -137,7 +158,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_view" />
+            app:layout_constraintTop_toBottomOf="@+id/constrain_card" />
 
         <TextView
             android:id="@+id/txtPower_Control_Frag"
@@ -215,7 +236,7 @@
             app:layout_constraintVertical_chainStyle="packed">
 
             <ImageButton
-                android:id="@+id/btnInSideDoor_Ctrl_Frag"
+                android:id="@+id/btn_Compartment"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
@@ -224,7 +245,7 @@
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintEnd_toStartOf="@+id/btnClose_Ctrl_Frag"
+                app:layout_constraintEnd_toStartOf="@+id/btn_Inside_door"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +254,7 @@
                 app:srcCompat="@drawable/open_inside_door" />
 
             <ImageButton
-                android:id="@+id/btnClose_Ctrl_Frag"
+                android:id="@+id/btn_Inside_door"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="10dp"
@@ -244,9 +265,9 @@
                 app:layout_constraintDimensionRatio="w,1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/btnInSideDoor_Ctrl_Frag"
+                app:layout_constraintStart_toEndOf="@+id/btn_Compartment"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/close" />
+                app:srcCompat="@drawable/open_inside_door" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageButton
@@ -262,6 +283,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_btn_Door"
             app:srcCompat="@drawable/power_on" />
+
+        <TextView
+            android:id="@+id/txt_Compartment"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="bottom|center"
+            android:text="Compartment:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/layout_btn_Door"
+            app:layout_constraintEnd_toStartOf="@+id/txt_door"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/layout_btn_Door"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_door"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="bottom|center"
+            android:text="Inside Door:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/layout_btn_Door"
+            app:layout_constraintEnd_toEndOf="@+id/layout_btn_Door"
+            app:layout_constraintStart_toEndOf="@+id/txt_Compartment"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
