@@ -14,21 +14,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.manager.Asyntask.Load_Image_Asynctask;
+import com.example.manager.Asyntask.Load_task_AsyncTask;
 import com.example.manager.R;
+import com.example.manager.Utils.Constant_Values;
 import com.example.manager.Utils.Methods;
-import com.example.manager.listeners.Load_Img_Listener;
+import com.example.manager.listeners.Load_Task_Listener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class Fragment_Dialog_Image extends AppCompatDialogFragment {
     private ImageView img_Dialog_Frag;
-    private ArrayList<String> link_img;
     private ArrayList<Bitmap> list_image;
     private ProgressBar progressBar_Dialog_Image_frag;
 
-    public Fragment_Dialog_Image(ArrayList<String> link_img) {
-        this.link_img = link_img;
+    public Fragment_Dialog_Image() {
         list_image = new ArrayList<>();
     }
 
@@ -55,8 +58,7 @@ public class Fragment_Dialog_Image extends AppCompatDialogFragment {
     }
 
     private void loadImage(){
-        list_image.clear();
-        Load_Img_Listener listener = new Load_Img_Listener() {
+        Load_Task_Listener listener = new Load_Task_Listener() {
             @Override
             public void onPre() {
                 if (!Methods.getInstance(getContext()).isNetworkConnected()) {
@@ -66,17 +68,35 @@ public class Fragment_Dialog_Image extends AppCompatDialogFragment {
             }
 
             @Override
-            public void onEnd(boolean isSuccess, ArrayList<Bitmap> list_result) {
-                progressBar_Dialog_Image_frag.setVisibility(View.GONE);
-                if(isSuccess){
-                    img_Dialog_Frag.setImageBitmap(list_result.get(0));
+            public void onEnd(boolean done, boolean is_pro) {
+                if(done){
+                    if(is_pro){
+                        progressBar_Dialog_Image_frag.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), "Hệ thống đang xử lý!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Picasso.get().load(Constant_Values.IMAGE_URL).networkPolicy(NetworkPolicy.NO_CACHE)
+                                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                                .into(img_Dialog_Frag, new Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        progressBar_Dialog_Image_frag.setVisibility(View.GONE);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Toast.makeText(getContext(), "Hệ thống bận", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
                 }
-                else
+                else{
+                    progressBar_Dialog_Image_frag.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Lỗi Server", Toast.LENGTH_SHORT).show();
+                }
             }
         };
 
-        Load_Image_Asynctask asynctask = new Load_Image_Asynctask(link_img, listener);
-        asynctask.execute();
+        Load_task_AsyncTask asyncTask = new Load_task_AsyncTask(listener);
+        asyncTask.execute(Constant_Values.TAKE_PIC);
     }
 }
