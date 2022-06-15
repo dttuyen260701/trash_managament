@@ -18,13 +18,17 @@ import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
+import com.example.manager.Asyntask.Load_Information_Asynctask;
 import com.example.manager.Models.Garbage_Can;
 import com.example.manager.R;
 import com.example.manager.Utils.Constant_Values;
+import com.example.manager.Utils.Methods;
 import com.example.manager.fragments.Fragment_Control;
 import com.example.manager.fragments.Fragment_Information;
 import com.example.manager.fragments.Fragment_Status;
+import com.example.manager.listeners.Load_Data_Listener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        garbage_can = Constant_Values.garbage_can;
         if(garbage_can == null)
-            garbage_can = new Garbage_Can("", 100f, 100f);
+            garbage_can = new Garbage_Can(false, true, 0f, 0f);
         AnhXa();
         setUp();
     }
@@ -62,26 +67,35 @@ public class MainActivity extends AppCompatActivity {
         }
         countDownTimer = new CountDownTimer(60*60*60,
                 //Constant_Values.TIME_TO_UPDATE_GARBAGE*60*1000) {
-            5000){
+            15000){
             @Override
             public void onTick(long l) {
-                if(garbage_can.getVolume_nonRecycle() >= 100)
-                    garbage_can.setVolume_nonRecycle(0);
-                if(garbage_can.getVolume_recycle() >= 100)
-                    garbage_can.setVolume_recycle(0);
-                garbage_can.setVolume_nonRecycle(garbage_can.getVolume_nonRecycle() + 10);
-                garbage_can.setVolume_recycle(garbage_can.getVolume_recycle() + 10);
-                switch (bottom_Navigation.getSelectedItemId()){
-                    case R.id.bottom_Status:
-                        ((Fragment_Status) fragment_Status).updateView();
-                        break;
-                    case R.id.bottom_Control:
-                        ((Fragment_Control) fragment_Control).updateView();
-                        break;
-                    default:
-                        break;
-                }
-                createNotification();
+                Load_Data_Listener listener = new Load_Data_Listener() {
+                    @Override
+                    public void onPre() {
+                        if(!Methods.getInstance(MainActivity.this).isNetworkConnected()){
+                            Toast.makeText(MainActivity.this, "Vui lòng kết nối Internet", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onEnd(boolean isSuccess, Garbage_Can garbage_can2) {
+                        Constant_Values.garbage_can = garbage_can2;
+                        switch (bottom_Navigation.getSelectedItemId()){
+                            case R.id.bottom_Status:
+                                ((Fragment_Status) fragment_Status).updateView();
+                                break;
+                            case R.id.bottom_Control:
+                                ((Fragment_Control) fragment_Control).updateView();
+                                break;
+                            default:
+                                break;
+                        }
+                        createNotification();
+                    }
+                };
+                Load_Information_Asynctask asynctask = new Load_Information_Asynctask(listener);
+                asynctask.execute();
             }
             @Override
             public void onFinish() {

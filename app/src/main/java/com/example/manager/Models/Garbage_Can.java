@@ -2,14 +2,14 @@ package com.example.manager.Models;
 
 public class Garbage_Can {
     private String ip;
-    private boolean door, power;//door 1 la dang tai che, door 0 la k phai tai che
+    private boolean processing, enb;//processing 1 la dang tai che, processing 0 la k phai tai che
     private float volume_recycle, volume_nonRecycle;
     //true la Mo, false la Dong
 
-    public Garbage_Can(String ip, float volume_recycle, float volume_nonRecycle) {
-        this.ip = ip;
-        this.door = false;
-        this.power = false;
+
+    public Garbage_Can(boolean processing, boolean enb, float volume_recycle, float volume_nonRecycle) {
+        this.processing = processing;
+        this.enb = enb;
         this.volume_recycle = volume_recycle;
         this.volume_nonRecycle = volume_nonRecycle;
     }
@@ -22,20 +22,20 @@ public class Garbage_Can {
         this.ip = ip;
     }
 
-    public boolean isDoor() {
-        return door;
+    public boolean isProcessing() {
+        return processing;
     }
 
-    public void setDoor(boolean door) {
-        this.door = door;
+    public void setProcessing(boolean processing) {
+        this.processing = processing;
     }
 
-    public boolean isPower() {
-        return power;
+    public boolean isEnb() {
+        return enb;
     }
 
-    public void setPower(boolean power) {
-        this.power = power;
+    public void setEnb(boolean enb) {
+        this.enb = enb;
     }
 
     public float getVolume_recycle() {
@@ -58,8 +58,8 @@ public class Garbage_Can {
     public String toString() {
         return "Garbage_Can{" +
                 "ip='" + ip + '\'' +
-                ", door=" + door +
-                ", power=" + power +
+                ", processing=" + processing +
+                ", enb=" + enb +
                 ", volume_recycle=" + volume_recycle +
                 ", volume_nonRecycle=" + volume_nonRecycle +
                 '}';

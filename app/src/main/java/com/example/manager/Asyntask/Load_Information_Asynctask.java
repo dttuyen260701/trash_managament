@@ -6,7 +6,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.manager.Models.Garbage_Can;
+import com.example.manager.Utils.Constant_Values;
+import com.example.manager.Utils.JsonUtils;
 import com.example.manager.listeners.Load_Data_Listener;
+
+import org.json.JSONObject;
 
 import java.net.URL;
 
@@ -31,10 +35,16 @@ public class Load_Information_Asynctask extends AsyncTask<Void, String, Boolean>
     @Override
     protected Boolean doInBackground(Void... voids) {
         try {
-            OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
-            Request.Builder builder = new Request.Builder();
-            Response response;
-
+//            {
+//                'is_enable' : is_enable,
+//                    'is_processing' : is_processing,
+//                    'distance':distance,
+//                    'distance2':distance2
+//            }
+            String result = JsonUtils.okhttpGET(Constant_Values.HTU_STATUS);
+            JSONObject jsonObject = new JSONObject(result);
+            garbage_can = new Garbage_Can(jsonObject.getBoolean("is_processing"), jsonObject.getBoolean("is_enable"),
+                    (float)jsonObject.getDouble("distance"), (float)jsonObject.getDouble("distance2"));
             return true;
         } catch (Exception e) {
             Log.e("AAA", e.getMessage());

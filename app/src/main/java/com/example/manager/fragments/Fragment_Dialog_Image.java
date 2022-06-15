@@ -72,7 +72,8 @@ public class Fragment_Dialog_Image extends AppCompatDialogFragment {
                 if(done){
                     if(is_pro){
                         progressBar_Dialog_Image_frag.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), "Hệ thống đang xử lý!", Toast.LENGTH_SHORT).show();
+                        if(getContext() != null)
+                            Toast.makeText(getContext(), "Hệ thống đang xử lý!", Toast.LENGTH_SHORT).show();
                     } else {
                         Picasso.get().load(Constant_Values.IMAGE_URL).networkPolicy(NetworkPolicy.NO_CACHE)
                                 .memoryPolicy(MemoryPolicy.NO_CACHE)
@@ -91,7 +92,8 @@ public class Fragment_Dialog_Image extends AppCompatDialogFragment {
                 }
                 else{
                     progressBar_Dialog_Image_frag.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Lỗi Server", Toast.LENGTH_SHORT).show();
+                    if(getContext() != null)
+                        Toast.makeText(getContext(), "Lỗi Server", Toast.LENGTH_SHORT).show();
                 }
             }
         };

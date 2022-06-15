@@ -14,22 +14,24 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.manager.Activity.MainActivity;
+import com.example.manager.Asyntask.Load_task_AsyncTask;
+import com.example.manager.Asyntask.Set_ENB_Asynctask;
 import com.example.manager.Models.Garbage_Can;
 import com.example.manager.R;
 import com.example.manager.Utils.Constant_Values;
+import com.example.manager.Utils.Methods;
+import com.example.manager.listeners.Load_Task_Listener;
 
 public class Fragment_Control extends Fragment {
-    private TextView txtPower_Control_Frag;
-    private ImageButton btn_Compartment, btn_Inside_door,
-            btnPower_Ctrl_Frag;
-    private ImageView img_Descrip_Control_Frag, img_first_door,
-            image_tool_bar_Control_frag;
+    private TextView txt_EnB;
+    private ImageButton btnPower_Ctrl_Frag;
+    private ImageView img_Descrip_Control_Frag, img_block;
     private Garbage_Can garbage_can;
     private long mLastClick_Power = 0, mLastClick_Close = 0,
             mLastClick_LRDoor = 0;
 
     public Fragment_Control(Garbage_Can garbage_can) {
-
         this.garbage_can = garbage_can;
     }
 
@@ -43,21 +45,18 @@ public class Fragment_Control extends Fragment {
     }
 
     private void SetUp(View view){
-        btn_Compartment = (ImageButton) view.findViewById(R.id.btn_Compartment);
-        btn_Inside_door = (ImageButton) view.findViewById(R.id.btn_Inside_door);
+        txt_EnB = (TextView) view.findViewById(R.id.txt_EnB);
         btnPower_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnPower_Ctrl_Frag);
         img_Descrip_Control_Frag = (ImageView) view.findViewById(R.id.img_Descrip_Control_Frag);
-        img_first_door = (ImageView) view.findViewById(R.id.img_first_door);
-        image_tool_bar_Control_frag = (ImageView) view.findViewById(R.id.image_tool_bar_Control_frag);
-        txtPower_Control_Frag = (TextView) view.findViewById(R.id.txtPower_Control_Frag);
+        img_block = (ImageView) view.findViewById(R.id.img_block);
 
         updateView();
 
-        if(garbage_can.isPower()){
-            txtPower_Control_Frag.setText("Power: On");
+        if(garbage_can.isEnb()){
+            txt_EnB.setText("Enable");
             isPowerOn();
         } else {
-            txtPower_Control_Frag.setText("Power: Off");
+            txt_EnB.setText("Disable");
             isPowerOff();
         }
 
@@ -71,56 +70,6 @@ public class Fragment_Control extends Fragment {
             }
         });
 
-        btn_Compartment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (SystemClock.elapsedRealtime() - mLastClick_Close < 4000){
-                    return;
-                }
-                mLastClick_Close = SystemClock.elapsedRealtime();
-                int img_door = 0;
-                if(garbage_can.isDoor()){
-                    garbage_can.setDoor(false);
-                    img_door = R.drawable.first_door_nrc;
-                } else{
-                    garbage_can.setDoor(true);
-                    img_door = R.drawable.first_door_rc;
-                }
-                Animation anim_rotate_center = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_center );
-                int finalImg_door = img_door;
-                anim_rotate_center.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        img_first_door.setImageResource(finalImg_door);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                img_first_door.startAnimation(anim_rotate_center);
-            }
-        });
-
-        btn_Inside_door.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (SystemClock.elapsedRealtime() - mLastClick_LRDoor < 4000){
-                    return;
-                }
-                mLastClick_LRDoor = SystemClock.elapsedRealtime();
-                Animation rotate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_rotate_down);
-                image_tool_bar_Control_frag.startAnimation(rotate);
-
-            }
-        });
-
         btnPower_Ctrl_Frag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,50 +77,57 @@ public class Fragment_Control extends Fragment {
                     return;
                 }
                 mLastClick_Power = SystemClock.elapsedRealtime();
-                if(garbage_can.isPower()){
-                    txtPower_Control_Frag.setText("Power: Off");
-                    garbage_can.setPower(false);
-                    btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
-                    isPowerOff();
-                } else {
-                    txtPower_Control_Frag.setText("Power: On");
-                    garbage_can.setPower(true);
-                    btnPower_Ctrl_Frag.setImageResource(R.drawable.power_off);
-                    isPowerOn();
-                }
+                Load_Task_Listener listener = new Load_Task_Listener() {
+                    @Override
+                    public void onPre() {
+                        if(!Methods.getInstance(getContext()).isNetworkConnected()){
+                            Toast.makeText(getContext(), "Vui lòng kết nối Internet", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onEnd(boolean done, boolean is_pro) {
+                        if(done){
+                            garbage_can.setEnb(is_pro);
+                            if(is_pro){
+                                isPowerOn();
+                            } else {
+                                isPowerOff();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "Lỗi server", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                };
+                Set_ENB_Asynctask task =  new Set_ENB_Asynctask(listener);
+                String enb_set = (garbage_can.isEnb() == true) ? "0" : "1";
+                String URL = Constant_Values.ENB + enb_set;
+                task.execute(URL);
             }
         });
     }
 
     private void isPowerOff(){
         //dong cua k nhan rac
+        txt_EnB.setText("Garbage can: is Disable");
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
-        btn_Compartment.setEnabled(false);
-        btn_Inside_door.setEnabled(false);
+        img_block.setVisibility(View.VISIBLE);
+
     }
 
     private void isPowerOn(){
         //mo cua thung rac
-        garbage_can.setDoor(true);
+        txt_EnB.setText("Garbage can: is Enable");
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_off);
-        btn_Compartment.setEnabled(true);
-        btn_Inside_door.setEnabled(true);
+        img_block.setVisibility(View.GONE);
     }
 
 
     public void updateView(){
-        if(garbage_can.isDoor()){
-            img_first_door.setImageResource(R.drawable.first_door_rc);
+        if(garbage_can.isEnb()){
+            isPowerOn();
         } else {
-            img_first_door.setImageResource(R.drawable.first_door_nrc);
-        }
-
-        if(garbage_can.isPower()){
-            btn_Compartment.setEnabled(true);
-            btn_Inside_door.setEnabled(true);
-        } else {
-            btn_Compartment.setEnabled(false);
-            btn_Inside_door.setEnabled(false);
+            isPowerOff();
         }
     }
 }
