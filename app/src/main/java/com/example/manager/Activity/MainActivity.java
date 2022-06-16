@@ -37,16 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 121;
     private static BottomNavigationView bottom_Navigation;
     private Fragment fragment_Status, fragment_Control, fragment_Information;
-    private static Garbage_Can garbage_can;
     private static CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        garbage_can = Constant_Values.garbage_can;
-        if(garbage_can == null)
-            garbage_can = new Garbage_Can(false, true, 0f, 0f);
+        if(Constant_Values.garbage_can == null)
+            Constant_Values.garbage_can = new Garbage_Can(false, true, 0f, 0f);
         AnhXa();
         setUp();
     }
@@ -58,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUp(){
         createNotification();
-        fragment_Status = new Fragment_Status(garbage_can);
-        fragment_Control = new Fragment_Control(garbage_can);
+        fragment_Status = new Fragment_Status();
+        fragment_Control = new Fragment_Control();
         fragment_Information = new Fragment_Information();
         chang_Menu(fragment_Status);
         if(countDownTimer != null){
@@ -80,18 +78,22 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onEnd(boolean isSuccess, Garbage_Can garbage_can2) {
-                        Constant_Values.garbage_can = garbage_can2;
-                        switch (bottom_Navigation.getSelectedItemId()){
-                            case R.id.bottom_Status:
-                                ((Fragment_Status) fragment_Status).updateView();
-                                break;
-                            case R.id.bottom_Control:
-                                ((Fragment_Control) fragment_Control).updateView();
-                                break;
-                            default:
-                                break;
+                        if(isSuccess){
+                            Constant_Values.garbage_can = garbage_can2;
+                            switch (bottom_Navigation.getSelectedItemId()){
+                                case R.id.bottom_Status:
+                                    ((Fragment_Status) fragment_Status).updateView();
+                                    break;
+                                case R.id.bottom_Control:
+                                    ((Fragment_Control) fragment_Control).updateView();
+                                    break;
+                                default:
+                                    break;
+                            }
+                            createNotification();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
-                        createNotification();
                     }
                 };
                 Load_Information_Asynctask asynctask = new Load_Information_Asynctask(listener);
@@ -138,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
     private void createNotification(){
         check_SDK_Notification();
 
-        float per_Recycle = garbage_can.getVolume_recycle()/Constant_Values.Volume_Machine,
-                per_NonRecycle = garbage_can.getVolume_nonRecycle()/Constant_Values.Volume_Machine;
+        float per_Recycle = (float)Constant_Values.garbage_can.getVolume_recycle()/Constant_Values.Volume_Machine,
+                per_NonRecycle = (float)Constant_Values.garbage_can.getVolume_nonRecycle()/Constant_Values.Volume_Machine;
 
 
         RemoteViews notification_layout =

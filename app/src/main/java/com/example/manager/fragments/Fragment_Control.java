@@ -27,12 +27,10 @@ public class Fragment_Control extends Fragment {
     private TextView txt_EnB;
     private ImageButton btnPower_Ctrl_Frag;
     private ImageView img_Descrip_Control_Frag, img_block;
-    private Garbage_Can garbage_can;
     private long mLastClick_Power = 0, mLastClick_Close = 0,
             mLastClick_LRDoor = 0;
 
-    public Fragment_Control(Garbage_Can garbage_can) {
-        this.garbage_can = garbage_can;
+    public Fragment_Control() {
     }
 
     @Override
@@ -52,7 +50,7 @@ public class Fragment_Control extends Fragment {
 
         updateView();
 
-        if(garbage_can.isEnb()){
+        if(Constant_Values.garbage_can.isEnb()){
             txt_EnB.setText("Enable");
             isPowerOn();
         } else {
@@ -88,7 +86,7 @@ public class Fragment_Control extends Fragment {
                     @Override
                     public void onEnd(boolean done, boolean is_pro) {
                         if(done){
-                            garbage_can.setEnb(is_pro);
+                            Constant_Values.garbage_can.setEnb(is_pro);
                             if(is_pro){
                                 isPowerOn();
                             } else {
@@ -100,7 +98,7 @@ public class Fragment_Control extends Fragment {
                     }
                 };
                 Set_ENB_Asynctask task =  new Set_ENB_Asynctask(listener);
-                String enb_set = (garbage_can.isEnb() == true) ? "0" : "1";
+                String enb_set = (Constant_Values.garbage_can.isEnb() == true) ? "0" : "1";
                 String URL = Constant_Values.ENB + enb_set;
                 task.execute(URL);
             }
@@ -109,22 +107,22 @@ public class Fragment_Control extends Fragment {
 
     private void isPowerOff(){
         //dong cua k nhan rac
-        txt_EnB.setText("Garbage can: is Disable");
+        txt_EnB.setText("Garbage can lid: Close");
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_on);
-        img_block.setVisibility(View.VISIBLE);
+        img_block.setVisibility(View.GONE);
 
     }
 
     private void isPowerOn(){
         //mo cua thung rac
-        txt_EnB.setText("Garbage can: is Enable");
+        txt_EnB.setText("Garbage can lid: Open");
         btnPower_Ctrl_Frag.setImageResource(R.drawable.power_off);
-        img_block.setVisibility(View.GONE);
+        img_block.setVisibility(View.VISIBLE);
     }
 
 
     public void updateView(){
-        if(garbage_can.isEnb()){
+        if(Constant_Values.garbage_can.isEnb()){
             isPowerOn();
         } else {
             isPowerOff();

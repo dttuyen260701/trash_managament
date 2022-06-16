@@ -32,14 +32,9 @@ public class Set_ENB_Asynctask extends AsyncTask<String, Void, Boolean> {
             JSONObject jsonObject = new JSONObject(result);
 
 
-            boolean status = jsonObject.getBoolean("is_enable");
-            is_enable = jsonObject.getBoolean("is_enable");
-            if(status){
-                return true;
-            }else {
-                return false;
-            }
-
+            boolean status = jsonObject.getBoolean("enable");
+            is_enable = jsonObject.getBoolean("enable");
+            return true;
         }catch (Exception e){
             e.printStackTrace();
             Log.e("AAA", e.toString());
