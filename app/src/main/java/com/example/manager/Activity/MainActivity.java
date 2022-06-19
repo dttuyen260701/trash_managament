@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             createNotification();
                         } else {
-                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Server is busy, try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 };
