@@ -84,9 +84,15 @@ public class Fragment_Status extends Fragment {
 
                     @Override
                     public void onEnd(boolean isSuccess, Garbage_Can garbage_can2) {
+
                         progressBar_status.setVisibility(View.GONE);
-                        Constant_Values.garbage_can = garbage_can2;
-                        updateView();
+                        if(isSuccess){
+                            Constant_Values.garbage_can = garbage_can2;
+                            updateView();
+                        } else {
+                            if(getContext() != null)
+                                Toast.makeText(getContext(), "Hệ thống bận", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 };
                 Load_Information_Asynctask asynctask = new Load_Information_Asynctask(listener);

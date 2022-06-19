@@ -47,7 +47,8 @@ public class Load_Information_Asynctask extends AsyncTask<Void, String, Boolean>
                     (float)jsonObject.getDouble("distance"), (float)jsonObject.getDouble("distance2"));
             return true;
         } catch (Exception e) {
-            Log.e("AAA", e.getMessage());
+            Log.e("III", e.getMessage());
+            garbage_can = Constant_Values.garbage_can;
             return false;
         }
     }

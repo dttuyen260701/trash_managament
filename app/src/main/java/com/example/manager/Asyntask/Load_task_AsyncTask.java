@@ -39,7 +39,7 @@ public class Load_task_AsyncTask extends AsyncTask<String, Void, Boolean> {
 
         }catch (Exception e){
             e.printStackTrace();
-            Log.e("AAA", e.toString());
+            Log.e("TASK", e.toString());
             return false;
         }
     }

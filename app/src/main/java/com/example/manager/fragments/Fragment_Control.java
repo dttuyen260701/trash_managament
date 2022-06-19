@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class Fragment_Control extends Fragment {
     private TextView txt_EnB;
     private ImageButton btnPower_Ctrl_Frag;
     private ImageView img_Descrip_Control_Frag, img_block;
+    private ProgressBar pro_Control;
     private long mLastClick_Power = 0, mLastClick_Close = 0,
             mLastClick_LRDoor = 0;
 
@@ -47,7 +49,7 @@ public class Fragment_Control extends Fragment {
         btnPower_Ctrl_Frag = (ImageButton) view.findViewById(R.id.btnPower_Ctrl_Frag);
         img_Descrip_Control_Frag = (ImageView) view.findViewById(R.id.img_Descrip_Control_Frag);
         img_block = (ImageView) view.findViewById(R.id.img_block);
-
+        pro_Control = (ProgressBar) view.findViewById(R.id.pro_Control);
         updateView();
 
         if(Constant_Values.garbage_can.isEnb()){
@@ -78,13 +80,18 @@ public class Fragment_Control extends Fragment {
                 Load_Task_Listener listener = new Load_Task_Listener() {
                     @Override
                     public void onPre() {
-                        if(!Methods.getInstance(getContext()).isNetworkConnected()){
-                            Toast.makeText(getContext(), "Vui lòng kết nối Internet", Toast.LENGTH_SHORT).show();
+                        if(getContext() != null){
+
+                            if(!Methods.getInstance(getContext()).isNetworkConnected()){
+                                Toast.makeText(getContext(), "Vui lòng kết nối Internet", Toast.LENGTH_SHORT).show();
+                            }
+                            pro_Control.setVisibility(View.VISIBLE);
                         }
                     }
 
                     @Override
                     public void onEnd(boolean done, boolean is_pro) {
+                        pro_Control.setVisibility(View.GONE);
                         if(done){
                             Constant_Values.garbage_can.setEnb(is_pro);
                             if(is_pro){
@@ -93,7 +100,9 @@ public class Fragment_Control extends Fragment {
                                 isPowerOff();
                             }
                         } else {
-                            Toast.makeText(getContext(), "Lỗi server", Toast.LENGTH_SHORT).show();
+                            if(getContext() != null) {
+                                Toast.makeText(getContext(), "Lỗi server", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 };

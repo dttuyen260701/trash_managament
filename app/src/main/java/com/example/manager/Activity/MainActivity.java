@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         }
         countDownTimer = new CountDownTimer(60*60*60,
                 //Constant_Values.TIME_TO_UPDATE_GARBAGE*60*1000) {
-            15000){
+            10000){
             @Override
             public void onTick(long l) {
                 Load_Data_Listener listener = new Load_Data_Listener() {
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                             createNotification();
                         } else {
-                            Toast.makeText(MainActivity.this, "Server is busy, try again", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MainActivity.this, "Server is busy, try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 };

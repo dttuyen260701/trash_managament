@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,9 +81,9 @@ public class Fragment_Information extends Fragment {
                 WindowManager.LayoutParams windowAttributes = window.getAttributes();
                 windowAttributes.gravity = Gravity.CENTER;
                 dialog.setCancelable(true);
-
                 EditText txt_thread =dialog.findViewById(R.id.txt_thread);
                 Button btn_cancel_dialog = dialog.findViewById(R.id.btn_cancel_dialog);
+                txt_thread.setText(Constant_Values.SERVER_URL);
                 btn_cancel_dialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -94,7 +95,8 @@ public class Fragment_Information extends Fragment {
                 btn_change_dialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Constant_Values.SERVER_URL = txt_thread.getText().toString();
+                        Constant_Values.SERVER_URL = txt_thread.getText().toString().trim();
+                        Log.e("TT", "onClick: " +  Constant_Values.SERVER_URL);
                         dialog.dismiss();
                     }
                 });

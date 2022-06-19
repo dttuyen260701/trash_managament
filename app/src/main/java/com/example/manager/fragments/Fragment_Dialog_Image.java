@@ -53,7 +53,24 @@ public class Fragment_Dialog_Image extends AppCompatDialogFragment {
         img_Dialog_Frag = (ImageView) view.findViewById(R.id.img_Dialog_Frag);
         progressBar_Dialog_Image_frag = (ProgressBar) view.findViewById(R.id.progressBar_Dialog_Image_frag);
 
-        loadImage();
+        if(Constant_Values.garbage_can.isProcessing()){
+            Picasso.get().load(Constant_Values.IMAGE_URL2).networkPolicy(NetworkPolicy.NO_CACHE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE)
+                    .into(img_Dialog_Frag, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar_Dialog_Image_frag.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            if(getContext() != null)
+                                Toast.makeText(getContext(), "Hệ thống bận", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }else {
+            loadImage();
+        }
 
     }
 
@@ -85,6 +102,8 @@ public class Fragment_Dialog_Image extends AppCompatDialogFragment {
 
                                     @Override
                                     public void onError(Exception e) {
+                                        progressBar_Dialog_Image_frag.setVisibility(View.GONE);
+                                        if(getContext() != null)
                                         Toast.makeText(getContext(), "Hệ thống bận", Toast.LENGTH_SHORT).show();
                                     }
                                 });
