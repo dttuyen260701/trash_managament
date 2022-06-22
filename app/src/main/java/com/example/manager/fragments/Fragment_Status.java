@@ -114,8 +114,8 @@ public class Fragment_Status extends Fragment {
     }
 
     public void updateView(){
-        float per_Recycle = (float) Constant_Values.garbage_can.getVolume_recycle()/Constant_Values.Volume_Machine,
-                per_NonRecycle = (float) Constant_Values.garbage_can.getVolume_nonRecycle()/Constant_Values.Volume_Machine;
+        float per_Recycle = (float) Math.abs(Constant_Values.garbage_can.getVolume_recycle())/Constant_Values.Volume_Machine,
+                per_NonRecycle = (float) Math.abs(Constant_Values.garbage_can.getVolume_nonRecycle())/Constant_Values.Volume_Machine;
         img_NonRecycle_Status_frag.setImageLevel((int) (10000*per_NonRecycle));
         img_Recycle_Status_frag.setImageLevel((int) (10000*per_Recycle));
         String enb = (Constant_Values.garbage_can.isEnb()) ? "Garbage can lid: Open" : "Garbage can lid: Close";

@@ -76,6 +76,10 @@ public class Fragment_Control extends Fragment {
                 if (SystemClock.elapsedRealtime() - mLastClick_Power < 4000){
                     return;
                 }
+                if( Constant_Values.garbage_can.isProcessing()){
+                    Toast.makeText(getActivity(), "Không thể mở cửa khi đang xử lí", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mLastClick_Power = SystemClock.elapsedRealtime();
                 Load_Task_Listener listener = new Load_Task_Listener() {
                     @Override

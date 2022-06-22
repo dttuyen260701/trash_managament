@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
     private void createNotification(){
         check_SDK_Notification();
 
-        float per_Recycle = (float)Constant_Values.garbage_can.getVolume_recycle()/Constant_Values.Volume_Machine,
-                per_NonRecycle = (float)Constant_Values.garbage_can.getVolume_nonRecycle()/Constant_Values.Volume_Machine;
+        float per_Recycle = (float) Math.abs(Constant_Values.garbage_can.getVolume_recycle())/Constant_Values.Volume_Machine,
+                per_NonRecycle = (float) Math.abs(Constant_Values.garbage_can.getVolume_nonRecycle())/Constant_Values.Volume_Machine;
 
 
         RemoteViews notification_layout =

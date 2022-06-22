@@ -43,8 +43,12 @@ public class Load_Information_Asynctask extends AsyncTask<Void, String, Boolean>
 //            }
             String result = JsonUtils.okhttpGET(Constant_Values.HTU_STATUS);
             JSONObject jsonObject = new JSONObject(result);
-            garbage_can = new Garbage_Can(jsonObject.getBoolean("is_processing"), jsonObject.getBoolean("is_enable"),
-                    (float)jsonObject.getDouble("distance"), (float)jsonObject.getDouble("distance2"));
+            garbage_can = new Garbage_Can(jsonObject.getBoolean("is_processing"),
+                    jsonObject.getBoolean("is_enable"),
+                    (jsonObject.getBoolean("is_processing")) ? Constant_Values.garbage_can.getVolume_recycle() :
+                    (float)jsonObject.getDouble("distance"),
+                    (jsonObject.getBoolean("is_processing")) ? Constant_Values.garbage_can.getVolume_nonRecycle() :
+                    (float)jsonObject.getDouble("distance2"));
             return true;
         } catch (Exception e) {
             Log.e("III", e.getMessage());
