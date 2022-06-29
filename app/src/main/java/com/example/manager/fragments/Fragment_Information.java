@@ -96,7 +96,10 @@ public class Fragment_Information extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Constant_Values.SERVER_URL = txt_thread.getText().toString().trim();
-                        Log.e("TT", "onClick: " +  Constant_Values.SERVER_URL);
+                        Constant_Values.ENB = Constant_Values.SERVER_URL;
+                        Constant_Values.TAKE_PIC = Constant_Values.SERVER_URL +"/takepic";
+                        Constant_Values.IMAGE_URL = Constant_Values.SERVER_URL +"/static/img/img2.jpg";
+                        Constant_Values.IMAGE_URL2 = Constant_Values.SERVER_URL +"/static/img/img.jpg";
                         dialog.dismiss();
                     }
                 });
